@@ -1,5 +1,5 @@
 import { initDiscordClient } from './discord'
-import {initAI} from "./openai"
+import { initAI } from './openai'
 
 initAI()
 initDiscordClient()
