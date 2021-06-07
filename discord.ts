@@ -1,4 +1,4 @@
-import { Client, Message } from 'discord.js'
+import { Client, Message, MessageEmbed } from 'discord.js'
 import { allowedChannels } from './config.json'
 import dotenv from 'dotenv'
 import { Logger } from 'tslog'
@@ -33,6 +33,9 @@ async function handleMessage(message: Message) {
   const promptPath = `userDB/${author.id}.txt`;
 
   if (content.startsWith('&&birth') && fs.existsSync(promptPath)) {
+    const embed = new MessageEmbed()
+        .setTitle("Reset your chat history!")
+    await channel.send(embed);
     return fs.unlink(promptPath, (err) => console.error(err))
   }
   if (fs.existsSync(promptPath)) {
