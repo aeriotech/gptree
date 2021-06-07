@@ -35,7 +35,7 @@ async function handleMessage(message: Message) {
   if (fs.existsSync(promptPath)) {
     fs.appendFileSync(promptPath, `\nHuman: ${content.trim()}\nAI: `);
   } else {
-    fs.appendFileSync(promptPath, `The following is a conversation with an AI assistant. The assistant is smart, racist, likes anime and codes in his free time.\n\nHuman: ${content.trim()}\nAI: `);
+    fs.appendFileSync(promptPath, `Human: ${content.trim()}\nAI: `);
   }
 
   const sendContentA = fs.readFileSync(promptPath);
