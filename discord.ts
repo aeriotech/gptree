@@ -32,6 +32,9 @@ async function handleMessage(message: Message) {
 
   const promptPath = `userDB/${author.id}.txt`;
 
+  if (content.startsWith('&&birth') && fs.existsSync(promptPath)) {
+    return fs.unlink(promptPath, (err) => console.error(err))
+  }
   if (fs.existsSync(promptPath)) {
     fs.appendFileSync(promptPath, `\nHuman: ${content.trim()}\nAI: `);
   } else {
