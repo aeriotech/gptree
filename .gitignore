@@ -122,3 +122,6 @@ dist
 *.ipr
 *.iws
 .idea/
+
+# Storage of history
+userDB/*
