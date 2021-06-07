@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const OPENAI_API_KEY = process.env.OPENAI_AI_KEY || ''
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
 
 let ai: OpenAI
 const log = new Logger()
@@ -18,15 +18,17 @@ export function initAI() {
 
 export async function callAI(prompt: string) {
 
+  console.log(prompt);
+
   const response = await ai.complete({
     engine: 'davinci',
-    prompt: 'Human: ' + prompt + '\nAI: ',
+    prompt: prompt,
     temperature: 0.9,
     maxTokens: 50,
     topP: 1,
     frequencyPenalty: 0.0,
     presencePenalty: 0.6,
-    stop: ['\n', 'Human:', 'AI:'],
+    stop: ['\n', 'AI:', 'Human:'],
     stream: false
   })
 

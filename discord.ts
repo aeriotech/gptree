@@ -26,17 +26,30 @@ function getTime() {
 
 async function handleMessage(message: Message) {
 
-  const { content, channel, author } = message
+  const { content, channel, author } = message;
   if (author.bot) return
   if (!allowedChannels.includes(channel.id)) return
+
+  const promptPath = `userDB/${author.id}.txt`;
+
+  if (fs.existsSync(promptPath)) {
+    fs.appendFileSync(promptPath, `\nHuman: ${content.trim()}\nAI: `);
+  } else {
+    fs.appendFileSync(promptPath, `Human: ${content.trim()}\nAI: `);
+  }
+
+  const sendContentA = fs.readFileSync(promptPath);
+  const sendContent = sendContentA.toString()
+  console.log(sendContent);
 
   const inMessage = `[${getTime()}] ${author.username} -> AI : ${content.trim()}`
   console.log(inMessage)
   fs.appendFileSync('logs/log.txt', inMessage + '\n')
 
-  const responseText = await callAI(content)
+  const responseText = await callAI(sendContent);
   const outMessage = `[${getTime()}] AI -> ${author.username} : ${responseText.trim()}`
   console.log(outMessage)
+  fs.appendFileSync(promptPath, responseText.trim())
   fs.appendFileSync('logs/log.txt', outMessage + '\n')
 
   await message.reply(responseText)
