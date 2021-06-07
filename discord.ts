@@ -34,7 +34,7 @@ async function handleMessage(message: Message) {
 
   if (content.startsWith('&&birth') && fs.existsSync(promptPath)) {
     const embed = new MessageEmbed()
-        .setTitle("Reset your chat history!")
+      .setTitle("Reset your chat history!")
     await channel.send(embed);
     return fs.unlink(promptPath, (err) => console.error(err))
   }
@@ -46,15 +46,12 @@ async function handleMessage(message: Message) {
 
   const sendContentA = fs.readFileSync(promptPath);
   const sendContent = sendContentA.toString()
-  console.log(sendContent);
 
   const inMessage = `[${getTime()}] ${author.username} -> AI : ${content.trim()}`
-  console.log(inMessage)
   fs.appendFileSync('logs/log.txt', inMessage + '\n')
 
   const responseText = await callAI(sendContent);
   const outMessage = `[${getTime()}] AI -> ${author.username} : ${responseText.trim()}`
-  console.log(outMessage)
   fs.appendFileSync(promptPath, responseText.trim())
   fs.appendFileSync('logs/log.txt', outMessage + '\n')
 
@@ -65,6 +62,6 @@ async function handleMessage(message: Message) {
 export async function initDiscordClient() {
   try {
     fs.mkdirSync('logs')
-  } catch (e) {}
+  } catch (e) { }
   await client.login(process.env.TOKEN)
 }
