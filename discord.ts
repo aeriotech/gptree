@@ -49,6 +49,7 @@ async function handleMessage(message: Message) {
   const responseText = await callAI(sendContent);
   const outMessage = `[${getTime()}] AI -> ${author.username} : ${responseText.trim()}`
   console.log(outMessage)
+  fs.appendFileSync(promptPath, responseText.trim())
   fs.appendFileSync('logs/log.txt', outMessage + '\n')
 
   await message.reply(responseText)
