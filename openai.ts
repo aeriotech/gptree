@@ -17,21 +17,19 @@ export function initAI() {
 }
 
 export async function callAI(prompt: string) {
-
-  console.log(prompt);
+  console.log(prompt)
 
   const response = await ai.complete({
     engine: 'davinci',
     prompt: prompt,
     temperature: 0.9,
-    maxTokens: 50,
+    maxTokens: 40,
     topP: 1,
     frequencyPenalty: 0.0,
     presencePenalty: 0.6,
     stop: ['\n', 'AI:', 'Human:'],
-    stream: false
+    stream: false,
   })
 
   return response.data.choices[0].text
-
 }
