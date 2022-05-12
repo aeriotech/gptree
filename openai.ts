@@ -20,7 +20,7 @@ export async function callAI(prompt: string) {
   console.log(prompt)
 
   const response = await ai.complete({
-    engine: 'davinci',
+    engine: 'curie',
     prompt: prompt,
     temperature: 0.9,
     maxTokens: 40,
